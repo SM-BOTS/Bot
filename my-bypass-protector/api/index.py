@@ -4,13 +4,12 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 app = FastAPI()
 
-# ⚠️ Yahan apna MongoDB link zaroor daalna bhai
-MONGO_URI = "YOUR_MONGODB_URI_HERE"
+# ⚠️ Apna asli MongoDB link yahan zaroor daalna bhai
+MONGO_URI = "mongodb+srv://gxmon239:f4l7bKrhka3Fh2cV@cluster0.qmblwql.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 client = AsyncIOMotorClient(MONGO_URI)
 db = client["bypass_protector"]
 links_col = db["links"]
 
-# HTML Page Code (Timer ke sath)
 def get_html_page(link_id: str):
     return f"""
     <!DOCTYPE html>
@@ -69,8 +68,6 @@ async def visit_page(id: str):
     link_data = await links_col.find_one({"_id": id})
     if not link_data:
         return HTMLResponse(content="<h2>⚠️ Link Expired ya Invalid hai!</h2>", status_code=404)
-    
-    # Direct HTML return kar rahe hain bina kisi templates folder ke jhanjhat ke
     return HTMLResponse(content=get_html_page(id))
 
 @app.post("/redirect")
@@ -79,7 +76,5 @@ async def handle_redirect(link_id: str = Form(...)):
     if not link_data:
         raise HTTPException(status_code=404, detail="Session Expired")
     
-    # Anti-Bypass Rule: link open hote hi database se khatam
     await links_col.delete_one({"_id": link_id})
-    
     return RedirectResponse(url=link_data["original_url"], status_code=303)
