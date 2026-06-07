@@ -3,12 +3,12 @@ from pyrogram import Client, filters
 from motor.motor_asyncio import AsyncIOMotorClient
 
 # Bot Credentials
-API_ID = 1234567               # Apne telegram account ka API ID dalein
-API_HASH = "YOUR_API_HASH"     # Apne telegram account ka API HASH dalein
-BOT_TOKEN = "YOUR_BOT_TOKEN"   # @BotFather se mila hua Token
+API_ID = 33361737               # Apne telegram account ka API ID dalein
+API_HASH = "7cd3bda26b08957a7205bbe8a51e6e90"     # Apne telegram account ka API HASH dalein
+BOT_TOKEN = "8988185529:AAHdb8dG__kOkoT7otTyjTF1Zj9QfBdfyZk"   # @BotFather se mila hua Token
 
 # Database Setup (Same wahi DB use karein jo index.py me kiya hai)
-MONGO_URI = "YOUR_MONGODB_URI_HERE"
+MONGO_URI = "mongodb+srv://gxmon239:f4l7bKrhka3Fh2cV@cluster0.qmblwql.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 db_client = AsyncIOMotorClient(MONGO_URI)
 db = db_client["bypass_protector"]
 links_col = db["links"]
